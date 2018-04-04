@@ -1,7 +1,11 @@
 package com.cetiti.dsp.annotation;
 
+import com.cetiti.dsp.core.annotation.LogInject;
+import org.slf4j.Logger;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
 
 /**
  * 通过反射机制
@@ -10,6 +14,9 @@ import java.lang.reflect.Method;
  * */
 
 public class MessageProcessor {
+
+    @LogInject
+    private static Logger log;
 
     public static void main(String[] args){
 
@@ -36,9 +43,10 @@ public class MessageProcessor {
                     System.out.println("name:" + message.name() + " num:" + message.num());
                 }
             }
-
+            log.info("成功");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            log.info("失败");
         }
     }
 }

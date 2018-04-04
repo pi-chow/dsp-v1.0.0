@@ -1,5 +1,6 @@
 package com.cetiti.dsp.annotation;
 
+
 public class AnnotationTest {
 
     @Message(num = 10)
