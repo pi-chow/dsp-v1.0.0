@@ -6,4 +6,10 @@
     <!--  使用自定义注解 @LogInject 注入 logger 对象 -->
     <bean id="loggerInjector" class="com.cetiti.dsp.core.injector.LoggerInjector"/>
 
+    <!--  使用自定义注解 @MapperInject 注入 logger 对象 -->
+    <bean id="mapperInjector" class="com.cetiti.dsp.core.injector.MapperInjector"/>
+
+    <!--  aop 日志监控 -->
+    <bean id="logAspect" class="com.cetiti.dsp.core.aspect.LogAspect"></bean>
+
 </beans>

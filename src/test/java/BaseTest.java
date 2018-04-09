@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * */
 @RunWith(SpringJUnit4ClassRunner.class)
 //告诉junit spring 配置文件
-@ContextConfiguration(locations = {"classpath*:spring/spring-bean.xml","classpath*:spring/spring-redis.xml"})
+@ContextConfiguration(locations = {"classpath*:spring/spring-service.xml","classpath*:spring/spring-redis.xml"})
 public class BaseTest {
 
 

@@ -203,6 +203,14 @@
       <version>1.3.0</version>
     </dependency>
     <!--mybatis 数据访问层 end -->
+    
+    <!-- 添加 mybatis 分页插件 -->
+    <!-- 包含 pagehelper-5.1.2.jar、jsqlparser-1.0.jar -->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>5.1.2</version>
+    </dependency>
 
     <!--redis 数据共享缓存 start-->
     <dependency>

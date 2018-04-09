@@ -41,6 +41,20 @@
         <property name="typeAliasesPackage" value="com.cetiti.dsp.entity"/>
         <!--扫描sql配置文件:mapper需要的xml文件-->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <!-- 配置 mybatis 分页插件-->
+        <property name="plugins">
+            <bean class="com.github.pagehelper.PageInterceptor">
+                <property name="properties">
+                    <value>
+                        helperDialect=mysql
+                        offsetAsPageNum=true
+                        rowBoundsWithCount=true
+                        pageSizeZero=true
+                        reasonable=false
+                    </value>
+                </property>
+            </bean>
+        </property>
     </bean>
 
     <!--4、配置扫描Dao接口包,动态实现DAO接口,注入到spring容器-->
@@ -49,6 +63,11 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描的Dao接口-->
         <property name="basePackage" value="com.cetiti.dsp.dao"/>
+    </bean>
+
+    <!-- 配置 sqlSessionTemplate 持久化模板 -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory" />
     </bean>
 
 </beans>

@@ -6,18 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class redisCacheTest extends BaseTest {
 
-    @Autowired
-    private RedisCache redisCache;
     @LogInject
     private static Logger log;
+    @Autowired
+    private RedisCache redisCache;
     @Test
     public void testPutCache() {
         try {
             String value = "LogCache";
             redisCache.putCache("LogCache",value);
-            log.info("redis 成功");
         } catch (Exception e) {
-            log.info("redis Erro");
         }
     }
 
