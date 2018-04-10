@@ -1,6 +1,7 @@
 package com.cetiti.core.model;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,6 +51,18 @@ public class PageModel<T> implements Serializable{
             }
             this.rows = customList;
             this.size = page.size();
+        }else{
+            PageInfo<T> pageInfo = new PageInfo<>(list);
+            this.pageNum = pageInfo.getPageNum();
+            this.pageSize = pageInfo.getPageSize();
+            this.total = pageInfo.getTotal();
+            this.pages = pageInfo.getPages();
+            List<T> customList = new ArrayList<>();
+            for(T t : list){
+                customList.add(t);
+            }
+            this.rows = customList;
+            this.size = pageInfo.getSize();
         }
     }
 

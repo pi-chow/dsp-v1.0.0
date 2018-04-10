@@ -23,7 +23,7 @@ public class RedisCache {
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
 
-    public <T> boolean putCache(String key, T obj){
+    public <T> void putCache(String key, T obj){
         final byte[] bkey = key.getBytes();
         final byte[] bvalue = ProtoStuffSerializerUtil.serialize(obj);
         boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
@@ -32,7 +32,6 @@ public class RedisCache {
                 return connection.setNX(bkey, bvalue);
             }
         });
-        return result;
     }
 
     public <T> void putCacheWithExpireTime(String key, T obj, final long expireTime) {
