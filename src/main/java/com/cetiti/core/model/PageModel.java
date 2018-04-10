@@ -1,4 +1,4 @@
-package com.cetiti.dsp.core.model;
+package com.cetiti.core.model;
 
 import com.github.pagehelper.Page;
 

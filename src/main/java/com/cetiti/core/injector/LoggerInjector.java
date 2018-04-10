@@ -1,6 +1,6 @@
-package com.cetiti.dsp.core.injector;
+package com.cetiti.core.injector;
 
-import com.cetiti.dsp.core.annotation.LogInject;
+import com.cetiti.core.annotation.LogInject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

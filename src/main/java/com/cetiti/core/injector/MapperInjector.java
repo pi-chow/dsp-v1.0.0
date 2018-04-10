@@ -1,6 +1,6 @@
-package com.cetiti.dsp.core.injector;
+package com.cetiti.core.injector;
 
-import com.cetiti.dsp.core.annotation.MapperInject;
+import com.cetiti.core.annotation.MapperInject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class MapperInjector implements BeanPostProcessor{
             }
         });
 
-        return null;
+        return bean;
     }
 
     /**

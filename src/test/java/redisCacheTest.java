@@ -1,5 +1,5 @@
-import com.cetiti.dsp.cache.RedisCache;
-import com.cetiti.dsp.core.annotation.LogInject;
+import com.cetiti.core.cache.RedisCache;
+import com.cetiti.core.annotation.LogInject;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.cetiti.dsp.core.aspect;
+package com.cetiti.core.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -27,7 +27,7 @@ public class LogAspect {
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
     //切入点表达式
-    @Pointcut("execution(* com.cetiti.dsp.service..*.*(..))")
+    @Pointcut("execution(* com.cetiti.dsp.web..*.*(..))")
     public void logPointCut() {
 
     }
@@ -43,7 +43,7 @@ public class LogAspect {
         String methodName = joinPoint.getSignature().getName();
         List<Object> parameters = Arrays.asList(joinPoint.getArgs());
         if(parameters.size() > 0){
-            log.info("Yan -> [LogAspect 返回通知] 执行类方法 : " + className + "." + methodName + "(" + parameters + "), 返回结果 : " + result);
+            log.info("[LogAspect 返回通知] 执行类方法 : " + className + "." + methodName + "(" + parameters + "), 返回结果 : " + result);
         }else{
             log.info("[LogAspect 返回通知] 执行类方法 : " + className + "." + methodName + "(), 返回结果 : " + result);
         }

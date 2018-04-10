@@ -11,7 +11,7 @@
     <!--配置整合mybatis过程-->
 
     <!--1、配置数据库相关参数-->
-    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:properties/jdbc.properties" ignore-unresolvable="true"/>
 
     <!--2.数据源druid -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -65,7 +65,7 @@
         <property name="basePackage" value="com.cetiti.dsp.dao"/>
     </bean>
 
-    <!-- 配置 sqlSessionTemplate 持久化模板 -->
+    <!-- 配置 sqlSessionTemplate 持久化模板 自定义模板时使用-->
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory" />
     </bean>

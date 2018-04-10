@@ -1,4 +1,4 @@
-package com.cetiti.dsp.core.annotation;
+package com.cetiti.core.annotation;
 
 import java.lang.annotation.*;
 

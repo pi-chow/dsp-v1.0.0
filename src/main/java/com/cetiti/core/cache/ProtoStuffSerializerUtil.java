@@ -1,4 +1,4 @@
-package com.cetiti.dsp.util;
+package com.cetiti.core.cache;
 
 import com.dyuproject.protostuff.LinkedBuffer;
 import com.dyuproject.protostuff.ProtostuffIOUtil;

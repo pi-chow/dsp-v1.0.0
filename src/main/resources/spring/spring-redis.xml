@@ -8,9 +8,9 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 缓存的层级-->
-    <context:component-scan base-package="com.cetiti.dsp.cache" />
+    <context:component-scan base-package="com.cetiti.core.cache" />
     <!-- 引入redis配置 -->
-    <context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:properties/redis.properties" ignore-unresolvable="true"/>
 
 
     <!-- Redis 配置 -->
