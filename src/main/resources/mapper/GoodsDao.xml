@@ -8,4 +8,11 @@
 		ORDER BY create_time DESC
 	</select>
 
+	<update id="reduceGoods">
+        UPDATE _goods
+        SET number = number - 1
+        WHERE
+            goods_id = #{goodsId}
+        AND number > 0
+	</update>
 </mapper>

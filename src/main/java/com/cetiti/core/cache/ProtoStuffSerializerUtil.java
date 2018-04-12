@@ -119,7 +119,9 @@ public class ProtoStuffSerializerUtil {
 	}
 
 	/**
-	 * Map 序列化
+	 * Map序列化列表
+     * @param map
+     * @return
 	 * */
 
 	public static <T> Map<byte[],byte[]> serializeMap(Map<String,T> map){
@@ -136,8 +138,10 @@ public class ProtoStuffSerializerUtil {
 	}
 
 	/**
-	 *
-	 * Map 反序列化</>
+	 * Map反序列化列表
+     * @param bMap
+     * @param targetClass
+     * @return
 	 * */
 
 	public static<T> Map<String,T> deserializeMap(Map<byte[],byte[]> bMap,Class<T> targetClass){
@@ -152,9 +156,8 @@ public class ProtoStuffSerializerUtil {
 		}
 		return map;
 	}
-
 	/**
-	 * list 列表
+	 * 序列化的Map转List
 	 * */
 	public static<T> List<T> deserializeList(Map<byte[],byte[]> bMap,Class<T> targetClass){
 		if (bMap.isEmpty()) {
@@ -165,7 +168,6 @@ public class ProtoStuffSerializerUtil {
 		for(byte[] bKeys : bMap.keySet()){
 			T obj = deserialize(bMap.get(bKeys),targetClass);
 			list.add(obj);
-
 		}
 		return list;
 	}

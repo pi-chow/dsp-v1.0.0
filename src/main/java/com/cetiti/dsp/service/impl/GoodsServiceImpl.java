@@ -28,7 +28,7 @@ public class GoodsServiceImpl extends BaseSupport implements GoodsService {
 
     @Override
     public List<Goods> getGoodsList() {
-        String cache_key = RedisCache.CACHENAME + "|getGoodsList|";
+        String cache_key = "getGoodsList";
         List<Goods> result_cache = cache.getListCache(cache_key,Goods.class);
         if(!isNull(result_cache)){
             LOG.info("get cache with key:" + cache_key);
@@ -43,22 +43,42 @@ public class GoodsServiceImpl extends BaseSupport implements GoodsService {
 
     @Override
     public List<Goods> getGoodsListByHm() {
-        String cache_key = RedisCache.CACHENAME + "|getGoodsListByHm|";
+        String cache_key = "getGoodsListByHm";
         List<Goods> result_cache = cache.getHMCacheAll4List(cache_key,Goods.class);
         if(!isNull(result_cache)){
             LOG.info("get cache with key:" + cache_key);
-            LOG.info("get cache with key:" + cache.getHashCache(cache_key,"iphone7",Goods.class));
-            LOG.info("get cache with key:" + cache.deleteHashCache(cache_key,"iphone7"));
         } else {
             result_cache = goodsDao.queryAll();
             Map<String,Goods> map =new HashMap<>();
             for(Goods goods : result_cache){
                 map.put(goods.getTitle(),goods);
-                cache.putHashCache(cache_key,map);
             }
+            cache.putHmCacheAll(cache_key,map);
             LOG.info("put cache with key:" + cache_key);
             return result_cache;
         }
         return  result_cache;
     }
+
+    @Override
+    public int reduceGoods(long goodsId) {
+        int result = goodsDao.reduceGoods(goodsId);
+        if(result <= 0){
+            LOG.error("reduceGoods erro");
+        }else{
+            //删除
+            cache.deleteHmCache("getGoodsListByHm","ipad3");
+            LOG.info("delete cache with key: getGoodsListByHm|ipad3");
+            //添加
+            List<Goods> result_cache = goodsDao.queryAll();
+            Map<String,Goods> map =new HashMap<>();
+            for(Goods goods : result_cache){
+                if(goods.getTitle().equals("ipad3")){
+                    cache.putHmCache("getGoodsListByHm","ipad3",goods);
+                }
+            }
+        }
+        return result;
+    }
+
 }

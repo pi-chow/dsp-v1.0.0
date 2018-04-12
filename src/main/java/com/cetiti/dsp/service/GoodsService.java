@@ -8,4 +8,6 @@ public interface GoodsService {
 
     List<Goods> getGoodsList();
     List<Goods> getGoodsListByHm();
+    int reduceGoods(long goodsId);
+
 }

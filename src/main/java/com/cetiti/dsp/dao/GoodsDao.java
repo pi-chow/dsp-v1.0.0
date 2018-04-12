@@ -8,4 +8,7 @@ import java.util.List;
 public interface GoodsDao {
 
     List<Goods> queryAll();
+
+    int reduceGoods(Long goodsId);
+
 }

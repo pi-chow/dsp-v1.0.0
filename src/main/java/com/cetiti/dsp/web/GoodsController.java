@@ -26,8 +26,6 @@ public class GoodsController extends ControllerSupport{
     @Autowired
     private GoodsService goodsService;
 
-/*    @MapperInject(GoodsDao.class)
-    private GoodsDao goodsDao;*/
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
@@ -37,4 +35,9 @@ public class GoodsController extends ControllerSupport{
         return this.resultPage(list);
     }
 
+    @RequestMapping(value = "/{goodsId}", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public void reduceGoods(Goods goods){
+        int result = goodsService.reduceGoods(goods.getGoodsId());
+    }
 }
