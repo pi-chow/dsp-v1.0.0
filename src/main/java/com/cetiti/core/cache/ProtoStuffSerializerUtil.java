@@ -8,10 +8,7 @@ import com.dyuproject.protostuff.runtime.RuntimeSchema;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 序列化工具
@@ -164,7 +161,7 @@ public class ProtoStuffSerializerUtil {
 			throw new RuntimeException("序列化对象(" + bMap + ")!");
 		}
 		List<T> list = new ArrayList<>();
-		Map<String,T> map = new HashMap<>();
+        bMap = new LinkedHashMap<>();
 		for(byte[] bKeys : bMap.keySet()){
 			T obj = deserialize(bMap.get(bKeys),targetClass);
 			list.add(obj);

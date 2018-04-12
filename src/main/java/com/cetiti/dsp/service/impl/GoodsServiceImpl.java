@@ -71,7 +71,6 @@ public class GoodsServiceImpl extends BaseSupport implements GoodsService {
             LOG.info("delete cache with key: getGoodsListByHm|ipad3");
             //添加
             List<Goods> result_cache = goodsDao.queryAll();
-            Map<String,Goods> map =new HashMap<>();
             for(Goods goods : result_cache){
                 if(goods.getTitle().equals("ipad3")){
                     cache.putHmCache("getGoodsListByHm","ipad3",goods);
