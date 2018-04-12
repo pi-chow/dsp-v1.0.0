@@ -33,7 +33,7 @@ public class GoodsController extends ControllerSupport{
     @ResponseBody
     public PageModel<Goods> list(){
         this.offsetPage(0, 10);
-        List<Goods> list = goodsService.getGoodsList();
+        List<Goods> list = goodsService.getGoodsListByHm();
         return this.resultPage(list);
     }
 

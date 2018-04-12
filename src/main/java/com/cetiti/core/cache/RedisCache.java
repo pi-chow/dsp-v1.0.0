@@ -7,7 +7,10 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -71,6 +74,69 @@ public class RedisCache {
         return result;
     }
 
+    /**
+     * Hash键值对
+     * */
+
+    public <T> boolean putHashCache(String key, final Map<String, T> map){
+
+        final byte[] bkeys = key.getBytes();
+        final Map<byte[],byte[]> bMap = ProtoStuffSerializerUtil.serializeMap(map);
+        boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
+            @Override
+            public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+                connection.hMSet(bkeys,bMap);
+                return true;
+            }
+        });
+
+        return result;
+    }
+
+    public <T> Map<String, T> getHashCacheAll(final String key, final Class<T> targetClass){
+        final byte[] bkeys = key.getBytes();
+        Map<byte[],byte[]> result = redisTemplate.execute(new RedisCallback<Map<byte[],byte[]>>() {
+            @Override
+            public Map<byte[],byte[]> doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.hGetAll(bkeys);
+            }
+        });
+        if (result.isEmpty()) {
+            return null;
+        }
+        return ProtoStuffSerializerUtil.deserializeMap(result,targetClass);
+    }
+
+    public <T> List<T> getHMCacheAll4List(final String key, final Class<T> targetClass){
+        final byte[] bkeys = key.getBytes();
+        Map<byte[],byte[]> result = redisTemplate.execute(new RedisCallback<Map<byte[],byte[]>>() {
+            @Override
+            public Map<byte[],byte[]> doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.hGetAll(bkeys);
+            }
+        });
+        if (result.isEmpty()) {
+            return null;
+        }
+
+        return ProtoStuffSerializerUtil.deserializeList(result,targetClass);
+    }
+
+    public <T> T getHashCache(final String key,final String mapKey, final Class<T> targetClass){
+        final byte[] bkeys = key.getBytes();
+        final byte[] bMapkeys = mapKey.getBytes();
+        byte[] result = redisTemplate.execute(new RedisCallback<byte[]>() {
+            @Override
+            public byte[] doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.hGet(bkeys,bMapkeys);
+            }
+        });
+        if (result == null) {
+            return null;
+        }
+        return ProtoStuffSerializerUtil.deserialize(result, targetClass);
+    }
+
     public <T> T getCache(final String key, Class<T> targetClass) {
         byte[] result = redisTemplate.execute(new RedisCallback<byte[]>() {
             @Override
@@ -117,6 +183,24 @@ public class RedisCache {
         redisTemplate.delete(RedisCache.CACHENAME+"|"+keys);
     }
 
+    /**
+     * 删除指定hashKey
+     *
+     * */
+        public Long deleteHashCache(String key, String mapKey){
+        final byte[] bkeys = key.getBytes();
+        final byte[] bMapkeys = mapKey.getBytes();
+            Long result = redisTemplate.execute(new RedisCallback<Long>() {
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.hDel(bkeys,bMapkeys);
+            }
+        });
+        if (result == 0) {
+            return result;
+        }
+        return result;
+    }
     /**
      * 清空所有缓存
      */

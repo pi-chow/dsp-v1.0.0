@@ -10,12 +10,17 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class GoodsServiceImpl extends BaseSupport implements GoodsService {
 
-    @Autowired
+    @Resource
     private GoodsDao goodsDao;
+
     @Autowired
     private RedisCache cache;
     @LogInject
@@ -30,6 +35,27 @@ public class GoodsServiceImpl extends BaseSupport implements GoodsService {
         } else {
             result_cache = goodsDao.queryAll();
             cache.putListCache(cache_key,result_cache);
+            LOG.info("put cache with key:" + cache_key);
+            return result_cache;
+        }
+        return  result_cache;
+    }
+
+    @Override
+    public List<Goods> getGoodsListByHm() {
+        String cache_key = RedisCache.CACHENAME + "|getGoodsListByHm|";
+        List<Goods> result_cache = cache.getHMCacheAll4List(cache_key,Goods.class);
+        if(!isNull(result_cache)){
+            LOG.info("get cache with key:" + cache_key);
+            LOG.info("get cache with key:" + cache.getHashCache(cache_key,"iphone7",Goods.class));
+            LOG.info("get cache with key:" + cache.deleteHashCache(cache_key,"iphone7"));
+        } else {
+            result_cache = goodsDao.queryAll();
+            Map<String,Goods> map =new HashMap<>();
+            for(Goods goods : result_cache){
+                map.put(goods.getTitle(),goods);
+                cache.putHashCache(cache_key,map);
+            }
             LOG.info("put cache with key:" + cache_key);
             return result_cache;
         }

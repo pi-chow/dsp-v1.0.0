@@ -18,7 +18,6 @@
         <property name="maxTotal" value="${redis.pool.maxTotal}" />
         <property name="maxIdle" value="${redis.pool.maxIdle}" />
         <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
-        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
     </bean>
 
     <!-- JedisCluster 集群高可用配置 -->

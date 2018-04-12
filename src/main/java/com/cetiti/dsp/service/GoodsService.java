@@ -7,4 +7,5 @@ import java.util.List;
 public interface GoodsService {
 
     List<Goods> getGoodsList();
+    List<Goods> getGoodsListByHm();
 }

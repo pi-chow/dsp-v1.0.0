@@ -8,7 +8,10 @@ import com.dyuproject.protostuff.runtime.RuntimeSchema;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 序列化工具
@@ -115,4 +118,55 @@ public class ProtoStuffSerializerUtil {
 		return result;
 	}
 
+	/**
+	 * Map 序列化
+	 * */
+
+	public static <T> Map<byte[],byte[]> serializeMap(Map<String,T> map){
+		if (map.isEmpty()) {
+			throw new RuntimeException("序列化对象(" + map + ")!");
+		}
+		Map<byte[],byte[]> bMap = new HashMap<>();
+		for(String key : map.keySet()){
+			byte[] bKeys = key.getBytes();
+			byte[] bValues = serialize(map.get(key));
+			bMap.put(bKeys,bValues);
+		}
+		return bMap;
+	}
+
+	/**
+	 *
+	 * Map 反序列化</>
+	 * */
+
+	public static<T> Map<String,T> deserializeMap(Map<byte[],byte[]> bMap,Class<T> targetClass){
+		if (bMap.isEmpty()) {
+			throw new RuntimeException("序列化对象(" + bMap + ")!");
+		}
+		Map<String,T> map = new HashMap<>();
+		for(byte[] bKeys : bMap.keySet()){
+			String key = new String(bKeys);
+			T obj = deserialize(bMap.get(bKeys),targetClass);
+			map.put(key,obj);
+		}
+		return map;
+	}
+
+	/**
+	 * list 列表
+	 * */
+	public static<T> List<T> deserializeList(Map<byte[],byte[]> bMap,Class<T> targetClass){
+		if (bMap.isEmpty()) {
+			throw new RuntimeException("序列化对象(" + bMap + ")!");
+		}
+		List<T> list = new ArrayList<>();
+		Map<String,T> map = new HashMap<>();
+		for(byte[] bKeys : bMap.keySet()){
+			T obj = deserialize(bMap.get(bKeys),targetClass);
+			list.add(obj);
+
+		}
+		return list;
+	}
 }
