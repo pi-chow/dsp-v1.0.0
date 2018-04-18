@@ -7,11 +7,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * redis 缓存
@@ -124,6 +120,7 @@ public class RedisCache {
 
     public <T> List<T> getHMCacheAll4List(final String key, final Class<T> targetClass){
         final byte[] bkeys = key.getBytes();
+
         Map<byte[],byte[]> result = redisTemplate.execute(new RedisCallback<Map<byte[],byte[]>>() {
             @Override
             public Map<byte[],byte[]> doInRedis(RedisConnection connection) throws DataAccessException {
@@ -133,6 +130,7 @@ public class RedisCache {
         if (result.isEmpty()) {
             return null;
         }
+
 
         return ProtoStuffSerializerUtil.deserializeList(result,targetClass);
     }

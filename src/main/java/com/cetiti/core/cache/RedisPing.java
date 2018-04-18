@@ -11,6 +11,7 @@ public class RedisPing
     public static void main(String[] args)
     {
         Jedis jedis = new Jedis("10.0.30.172", 6379);
+        jedis.auth("123.com");
         System.out.println("OK");
         System.out.println("running: " + jedis.ping());
     }

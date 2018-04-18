@@ -160,8 +160,7 @@ public class ProtoStuffSerializerUtil {
 		if (bMap.isEmpty()) {
 			throw new RuntimeException("序列化对象(" + bMap + ")!");
 		}
-		List<T> list = new ArrayList<>();
-        bMap = new LinkedHashMap<>();
+		List<T> list = new LinkedList<>();
 		for(byte[] bKeys : bMap.keySet()){
 			T obj = deserialize(bMap.get(bKeys),targetClass);
 			list.add(obj);
