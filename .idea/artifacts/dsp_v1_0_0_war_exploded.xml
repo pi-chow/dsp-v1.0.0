@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="dsp-v1.0.0:war exploded">
-    <output-path>$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180502</output-path>
+    <output-path>$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180510</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -32,6 +32,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-test:4.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jms:4.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:4.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
           <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
           <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
@@ -70,7 +72,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180502/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180510/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="dsp-v1.0.0/web/Web" />
     </root>

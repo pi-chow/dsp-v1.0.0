@@ -1,13 +1,13 @@
-package com.cetiti.core.activeMQ;
-
 import com.cetiti.core.activeMQ.api.Consumer;
 import com.cetiti.core.activeMQ.api.DspMqFactory;
 import com.cetiti.core.activeMQ.api.PropertyKeyConst;
+import org.junit.Test;
 
 import java.util.Properties;
 
-public class TestConsumer {
-    public static void main(String[] args){
+public class consumerTest extends BaseTest {
+    @Test
+    public void testSubscribe(){
         Properties properties = new Properties();
         properties.put(PropertyKeyConst.ConsumerId,"consumer_1");
         properties.put(PropertyKeyConst.AppKey,"1e84cb6a13dd7552dc989342da902e14");
@@ -16,8 +16,7 @@ public class TestConsumer {
         new Thread(new ConsumerMq("test","message_1",consumer)).start();
     }
 
-
-    private static class ConsumerMq implements Runnable{
+    private class ConsumerMq implements Runnable{
         Consumer consumer = new Consumer();
         private String topic;
         private String messageKey;
