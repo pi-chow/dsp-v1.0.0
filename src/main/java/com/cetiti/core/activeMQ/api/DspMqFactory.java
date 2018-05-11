@@ -14,13 +14,13 @@ public class DspMqFactory {
     private static final String PASSWORD = "admin";
     private static final String BROKEN_URL = "tcp://192.168.138.130:61616";
 
-    public static Consumer createConsumer(Properties properties){
+    public static DspMqConsumer createConsumer(Properties properties){
 
         //授权验证appKey+appSecret
         /**
          * 描述：通过appKey+appSecret授权验证的consumerId返回用户名/密码/连接信息
          * */
-        Consumer consumer = new Consumer();
+        DspMqConsumer dspMqConsumer = new DspMqConsumer();
         if(properties.getProperty(PropertyKeyConst.ConsumerId) == "consumer_1"){
             if(properties.getProperty(PropertyKeyConst.AppKey) == "1e84cb6a13dd7552dc989342da902e14"){
                 if(properties.getProperty(PropertyKeyConst.AppSecret) == "ce498e11fd7cdecdabbb15b816ede4c4"){
@@ -28,15 +28,15 @@ public class DspMqFactory {
                         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(USERNAME,PASSWORD,BROKEN_URL);
                         Connection connection  = connectionFactory.createConnection();
                         connection.start();
-                        consumer.setSession(connection.createSession(false,Session.AUTO_ACKNOWLEDGE));
+                        dspMqConsumer.setSession(connection.createSession(false,Session.AUTO_ACKNOWLEDGE));
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }
-                    return consumer;
+                    return dspMqConsumer;
                 }
             }
         }
-        return consumer;
+        return dspMqConsumer;
 
     }
 }

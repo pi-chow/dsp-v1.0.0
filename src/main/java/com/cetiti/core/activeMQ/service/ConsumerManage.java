@@ -20,5 +20,4 @@ public interface ConsumerManage {
      * 消费消息
      * 功能：广播消费
      * */
-    <T> List<T> onCommonMessage(Consumer consumer, String messageKey,final Class<T> targetClass);
 }

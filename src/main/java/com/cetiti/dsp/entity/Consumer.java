@@ -47,7 +47,7 @@ public class Consumer {
 
     @Override
     public String toString() {
-        return "Consumer{" +
+        return "DspMqConsumer{" +
                 "consumerId=" + consumerId +
                 ", consumerName='" + consumerName + '\'' +
                 ", topicName='" + topicName + '\'' +

@@ -1,6 +1,6 @@
 package com.cetiti.core.activeMQ;
 
-import com.cetiti.core.activeMQ.api.Consumer;
+import com.cetiti.core.activeMQ.api.DspMqConsumer;
 import com.cetiti.core.activeMQ.api.DspMqFactory;
 import com.cetiti.core.activeMQ.api.PropertyKeyConst;
 
@@ -12,25 +12,25 @@ public class TestConsumer {
         properties.put(PropertyKeyConst.ConsumerId,"consumer_1");
         properties.put(PropertyKeyConst.AppKey,"1e84cb6a13dd7552dc989342da902e14");
         properties.put(PropertyKeyConst.AppSecret,"ce498e11fd7cdecdabbb15b816ede4c4");
-        Consumer consumer = DspMqFactory.createConsumer(properties);
-        new Thread(new ConsumerMq("test","message_1",consumer)).start();
+        DspMqConsumer dspMqConsumer = DspMqFactory.createConsumer(properties);
+        new Thread(new ConsumerMq("test","message_1", dspMqConsumer)).start();
     }
 
 
     private static class ConsumerMq implements Runnable{
-        Consumer consumer = new Consumer();
+        DspMqConsumer dspMqConsumer = new DspMqConsumer();
         private String topic;
         private String messageKey;
 
-        public ConsumerMq(String topic, String messageKey,Consumer consumer) {
+        private ConsumerMq(String topic, String messageKey,DspMqConsumer dspMqConsumer) {
             this.topic = topic;
             this.messageKey = messageKey;
-            this.consumer = consumer;
+            this.dspMqConsumer = dspMqConsumer;
         }
 
         @Override
         public void run() {
-            consumer.subscribe(topic,messageKey);
+            dspMqConsumer.subscribe(topic,messageKey);
         }
     }
 }

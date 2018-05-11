@@ -2,12 +2,12 @@ package com.cetiti.core.activeMQ.api;
 
 
 import com.cetiti.core.cache.ProtoStuffSerializerUtil;
-import com.cetiti.dsp.entity.Goods;
+import com.cetiti.dsp.entity.PersonGps;
 import org.apache.activemq.command.ActiveMQTopic;
 
 import javax.jms.*;
 
-public class Consumer {
+public class DspMqConsumer {
     private Session session;
 
     protected Session getSession() {
@@ -29,7 +29,9 @@ public class Consumer {
                 @Override
                 public void onMessage(Message message) {
                     try {
-                        System.out.println("获取消息： " + messageKey + "=》" + ProtoStuffSerializerUtil.deserializeList((byte[]) ((ObjectMessage) message).getObject(), Goods.class));
+                        System.out.println("获取消息： " + messageKey + "=》" +
+                                ProtoStuffSerializerUtil.deserializeList((byte[]) ((ObjectMessage) message).getObject(), PersonGps.class));
+                        System.out.println("获取消息： " + messageKey + "=》" + ((ObjectMessage) message).getObject());
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }

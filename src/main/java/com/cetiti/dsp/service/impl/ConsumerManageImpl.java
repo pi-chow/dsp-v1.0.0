@@ -31,12 +31,5 @@ public class ConsumerManageImpl implements ConsumerManage {
         return null;
     }
 
-    @Override
-    public <T> List<T> onCommonMessage(Consumer consumer, String messageKey, Class<T> targetClass) {
-
-
-
-        return null;
-    }
 
 }
