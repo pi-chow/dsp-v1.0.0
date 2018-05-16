@@ -59,15 +59,16 @@
 
     <!--4、配置扫描Dao接口包,动态实现DAO接口,注入到spring容器-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!--注入SqlSessionFactory-->
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--注入sqlSessionTemplate-->
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
         <!-- 给出需要扫描的Dao接口-->
         <property name="basePackage" value="com.cetiti.dsp.dao"/>
     </bean>
 
-    <!-- 配置 sqlSessionTemplate 持久化模板 自定义模板时使用-->
+    <!--5、 配置 sqlSessionTemplate 持久化模板 自定义模板时使用-->
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory" />
     </bean>
+
 
 </beans>

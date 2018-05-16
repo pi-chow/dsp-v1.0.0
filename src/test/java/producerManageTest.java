@@ -17,11 +17,24 @@ public class producerManageTest extends BaseTest {
     ProducerManage producerManage;
 
 
-    @Test
+/*    @Test
     public void testSendMessage(){
         Producer producer = new Producer();
         List<PersonGps> list = personGpsDao.queryAll();
         producer.setTopicName("test");
-        producerManage.sendCommonMessage(producer,"message_1",list);
+        System.out.println(producerManage.sendCommonMessage(producer,"message_1",list));
+    }*/
+    @Test
+    public void insertProducerTest(){
+        Producer producer = new Producer();
+        producer.setTopicName("test");
+        producerManage.insertProducerInfo(producer);
     }
+
+/*    @Test
+    public void deleteProducerTest(){
+        Producer producer = new Producer();
+        producer.setTopicName("test");
+        producerManage.deleteProducerInfo(producer);
+    }*/
 }

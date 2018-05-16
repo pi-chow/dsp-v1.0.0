@@ -1,8 +1,6 @@
 package com.cetiti.core.activeMQ.api;
 
 
-import com.cetiti.core.cache.ProtoStuffSerializerUtil;
-import com.cetiti.dsp.entity.PersonGps;
 import org.apache.activemq.command.ActiveMQTopic;
 
 import javax.jms.*;
@@ -30,8 +28,7 @@ public class DspMqConsumer {
                 public void onMessage(Message message) {
                     try {
                         System.out.println("获取消息： " + messageKey + "=》" +
-                                ProtoStuffSerializerUtil.deserializeList((byte[]) ((ObjectMessage) message).getObject(), PersonGps.class));
-                        System.out.println("获取消息： " + messageKey + "=》" + ((ObjectMessage) message).getObject());
+                                ((StreamMessage)message).readString());
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }
@@ -39,6 +36,14 @@ public class DspMqConsumer {
             });
         } catch (JMSException e) {
             e.printStackTrace();
+        } finally {
+            if(session != null){
+                try {
+                    session.close();
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
