@@ -14,14 +14,14 @@ import java.util.*;
  * 序列化工具
  * @author zhouliyu
  */
-public class ProtoStuffSerializerUtil {
+class ProtoStuffSerializerUtil {
 
 	/**
 	 * 序列化对象
 	 * @param obj
 	 * @return
 	 */
-	public static <T> byte[] serialize(T obj) {
+	static <T> byte[] serialize(T obj) {
 		if (obj == null) {
 			throw new RuntimeException("序列化对象(" + obj + ")!");
 		}
@@ -45,7 +45,7 @@ public class ProtoStuffSerializerUtil {
 	 * @param targetClass
 	 * @return
 	 */
-	public static <T> T deserialize(byte[] paramArrayOfByte, Class<T> targetClass) {
+	 static <T> T deserialize(byte[] paramArrayOfByte, Class<T> targetClass) {
 		if (paramArrayOfByte == null || paramArrayOfByte.length == 0) {
 			throw new RuntimeException("反序列化对象发生异常,byte序列为空!");
 		}
@@ -65,7 +65,7 @@ public class ProtoStuffSerializerUtil {
 	 * @param objList
 	 * @return
 	 */
-	public static <T> byte[] serializeList(List<T> objList) {
+	static <T> byte[] serializeList(List<T> objList) {
 		if (objList == null || objList.isEmpty()) {
 			throw new RuntimeException("序列化对象列表(" + objList + ")参数异常!");
 		}
@@ -100,7 +100,7 @@ public class ProtoStuffSerializerUtil {
 	 * @param targetClass
 	 * @return
 	 */
-	public static <T> List<T> deserializeList(byte[] paramArrayOfByte, Class<T> targetClass) {
+	static <T> List<T> deserializeList(byte[] paramArrayOfByte, Class<T> targetClass) {
 		if (paramArrayOfByte == null || paramArrayOfByte.length == 0) {
 			throw new RuntimeException("反序列化对象发生异常,byte序列为空!");
 		}
@@ -121,7 +121,7 @@ public class ProtoStuffSerializerUtil {
      * @return
 	 * */
 
-	public static <T> Map<byte[],byte[]> serializeMap(Map<String,T> map){
+	static <T> Map<byte[],byte[]> serializeMap(Map<String, T> map){
 		if (map.isEmpty()) {
 			throw new RuntimeException("序列化对象(" + map + ")!");
 		}
@@ -141,7 +141,7 @@ public class ProtoStuffSerializerUtil {
      * @return
 	 * */
 
-	public static<T> Map<String,T> deserializeMap(Map<byte[],byte[]> bMap,Class<T> targetClass){
+	static<T> Map<String,T> deserializeMap(Map<byte[], byte[]> bMap, Class<T> targetClass){
 		if (bMap.isEmpty()) {
 			throw new RuntimeException("序列化对象(" + bMap + ")!");
 		}
@@ -156,7 +156,7 @@ public class ProtoStuffSerializerUtil {
 	/**
 	 * 序列化的Map转List
 	 * */
-	public static<T> List<T> deserializeList(Map<byte[],byte[]> bMap,Class<T> targetClass){
+	static<T> List<T> deserializeList(Map<byte[], byte[]> bMap, Class<T> targetClass){
 		if (bMap.isEmpty()) {
 			throw new RuntimeException("序列化对象(" + bMap + ")!");
 		}

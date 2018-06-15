@@ -2,17 +2,12 @@ package com.cetiti.dsp.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.cetiti.core.activeMQ.service.ProducerManage;
-import com.cetiti.core.cache.ProtoStuffSerializerUtil;
 import com.cetiti.dsp.entity.Producer;
-import org.apache.activemq.ActiveMQMessageProducer;
-import org.apache.activemq.ActiveMQSession;
-import org.apache.activemq.command.ActiveMQTopic;
-import org.apache.activemq.command.ProducerId;
-import org.apache.activemq.command.ProducerInfo;
-import org.springframework.beans.factory.FactoryBean;
+import org.apache.activemq.ActiveMQConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.jms.core.SessionCallback;
 import org.springframework.stereotype.Service;
 
 import javax.jms.*;
@@ -23,44 +18,25 @@ public class ProducerManageImpl implements ProducerManage {
 
     @Autowired
     private JmsTemplate jmsTopicTemplate;
-    
-
-
-    public static Session setSession(JmsTemplate jmsTopicTemplate,boolean var1, int var2 ) {
-        Session session = null;
-        try {
-            session = jmsTopicTemplate.getConnectionFactory()
-                    .createConnection().createSession(var1,var2);
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-        return session;
-    }
 
     private static String messageId = null;
 
-
     @Override
-    public int insertProducerInfo(Producer producer) {
+    public int insertProducerInfo(final Producer producer) {
+        //produce与topic一对一
+        //插入mysql=>成功，创建主题;失败，不创建主题。
         //create producer to MQ
-        Session session = ProducerManageImpl.setSession(jmsTopicTemplate,false,Session.AUTO_ACKNOWLEDGE);
-        try {
-            Destination destination = session.createTopic(producer.getTopicName());
-            MessageProducer messageProducer = session.createProducer(destination);
 
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }finally {
-            if(session !=null){
-                try {
-                    session.close();
-                } catch (JMSException e) {
-                    e.printStackTrace();
-                }
+        Boolean result = jmsTopicTemplate.execute(new SessionCallback<Boolean>() {
+            @Override
+            public Boolean doInJms(Session session) throws JMSException {
+                Destination destination = session.createTopic(producer.getTopicName());
+                //真正创建主题
+                session.createProducer(destination);
+                return true;
             }
-        }
-        //create producer to mysql
-
+        });
+        System.out.println(result);
         return 0;
     }
 
@@ -70,13 +46,18 @@ public class ProducerManageImpl implements ProducerManage {
     }
 
     @Override
-    public int deleteProducerInfo(Producer Producer) {
-
+    public int deleteProducerInfo(Producer producer) {
+        try {
+            Connection connection = jmsTopicTemplate.getConnectionFactory().createConnection();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
     @Override
     public List<Producer> getProducerInfos(String keyWord) {
+
         return null;
     }
 
@@ -95,6 +76,17 @@ public class ProducerManageImpl implements ProducerManage {
                 return streamMessage;
             }
         });
+/*        String message = JSON.toJSONString(objList);
+        jmsTopicTemplate.convertAndSend(producer.getTopicName(), message,
+                new MessagePostProcessor() {
+                    @Override
+                    public Message postProcessMessage(Message message) throws JMSException {
+                        message.setStringProperty("messageKey",messageKey);
+                        message.setJMSMessageID(messageKey);
+                        messageId = message.getJMSMessageID();
+                        return message;
+                    }
+                });*/
 
         return messageId;
     }

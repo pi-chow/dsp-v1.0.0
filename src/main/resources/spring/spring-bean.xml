@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--  使用自定义注解 @LogInject 注入 logger 对象 -->
     <bean id="loggerInjector" class="com.cetiti.core.injector.LoggerInjector"/>
@@ -12,4 +12,24 @@
     <!--  aop 日志监控 -->
     <bean id="logAspect" class="com.cetiti.core.aspect.LogAspect"></bean>
 
+    <!--Spring test start-->
+    <!--构造方法-->
+    <bean id="helloImpl" class="com.cetiti.core.spring.HelloImpl"></bean>
+    <!--aop-->
+    <bean id="aspect" class="com.cetiti.core.spring.aop.HelloAspect"></bean>
+    <aop:config>
+        <aop:pointcut id="pointcut" expression="execution(* com.cetiti.core.spring.impl..*(..)) and args(param)"/>
+        <aop:aspect ref="aspect">
+            <aop:before pointcut-ref="pointcut" method="beforeAdvice" arg-names="param"/>
+            <aop:after-returning
+                    method="afterFinallyAdvice"
+                    pointcut="execution(* com.cetiti.core.spring.HelloImpl.afterSayHello())"
+                    arg-names="retVal"
+                    returning="retVal"/>
+            <aop:around method="aroundAdvice" pointcut="execution(* com.cetiti.core.spring.HelloImpl.sayAround(..))" />
+        </aop:aspect>
+    </aop:config>
+    <!--接口实现-->
+
+    <!--Spring test end-->
 </beans>

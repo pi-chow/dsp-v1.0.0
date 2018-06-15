@@ -24,17 +24,17 @@ public class producerManageTest extends BaseTest {
         producer.setTopicName("test");
         System.out.println(producerManage.sendCommonMessage(producer,"message_1",list));
     }*/
-    @Test
+/*    @Test
     public void insertProducerTest(){
         Producer producer = new Producer();
-        producer.setTopicName("test");
+        producer.setTopicName("test2");
         producerManage.insertProducerInfo(producer);
-    }
+    }*/
 
-/*    @Test
+    @Test
     public void deleteProducerTest(){
         Producer producer = new Producer();
         producer.setTopicName("test");
         producerManage.deleteProducerInfo(producer);
-    }*/
+    }
 }

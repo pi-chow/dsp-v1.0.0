@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- 启动对@AspectJ注解的支持 -->
+    <!-- 启动对@AspectJ注解的支持 指定使用CGLIB代理 -->
     <aop:aspectj-autoproxy proxy-target-class="true" />
 
     <!--开始springMVC注解模式-->

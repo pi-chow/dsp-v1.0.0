@@ -22,24 +22,24 @@ public class BaseSupport {
      * @param obj 需要进行判断的对象
      * @return boolean 为null或空返回 true，否则返回 false
      */
-    public boolean isNull(Object obj){
+    protected boolean isNull(Object obj){
         if(null == obj)
             return true;
         if(obj instanceof List){
             List<?> list = (List<?>) obj;
-            return list.isEmpty() ? true : false;
+            return list.isEmpty();
         }
         if (obj instanceof Map) {
             Map<?, ?> map = (Map<?, ?>) obj;
-            return map.isEmpty() ? true : false;
+            return map.isEmpty();
         }
         if (obj instanceof Set) {
             Set<?> set = (Set<?>) obj;
-            return set.isEmpty() ? true : false;
+            return set.isEmpty();
         }
         if (obj instanceof String) {
             String str = (String) obj;
-            return str.isEmpty() ? true : false;
+            return str.isEmpty();
         }
         return false;
     }

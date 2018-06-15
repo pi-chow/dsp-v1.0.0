@@ -16,11 +16,12 @@
                            password="${jms.password}"/>
     <!-- 方法二：普通方式进行配置 -->
     <!--
-    <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="${jms.brokerURL}"/>
-        <property name="userName" value="${jms.userName}"/>
-        <property name="password" value="${jms.password}"/>
-    </bean>
+        <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+            <property name="brokerURL" value="${jms.brokerURL}"/>
+            <property name="userName" value="${jms.userName}"/>
+            <property name="password" value="${jms.password}"/>
+            <property name="watchTopicAdvisories" value="true"/>
+        </bean>
     -->
 
     <!-- Spring Caching连接工厂 -->
