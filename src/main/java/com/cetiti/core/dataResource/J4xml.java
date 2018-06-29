@@ -45,7 +45,7 @@ public class J4xml {
         JDBCProperties obj = new JDBCProperties();
         obj.setDriverClassName("com.mysql.jdbc.Driver");
         obj.setUrl("jdbc:mysql://10.0.30.207:3306/pd_ods?useUnicode=true&characterEncoding=utf8&useSSL=false");
-        obj.setUsername("root");
+        obj.setUsername("root123");
         obj.setPassword("123.com");
         xml.createXml4Jdbc(obj);
     }
