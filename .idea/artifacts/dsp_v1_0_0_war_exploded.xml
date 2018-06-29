@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="dsp-v1.0.0:war exploded">
-    <output-path>$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180518</output-path>
+    <output-path>$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180629</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -69,10 +69,12 @@
           <element id="library" level="project" name="Maven: org.apache.activemq:activemq-pool:5.15.3" />
           <element id="library" level="project" name="Maven: org.apache.activemq:activemq-jms-pool:5.15.3" />
           <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.0.1B_spec:1.0.1" />
+          <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180518/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/dsp_1.0-SNAPSHOT_20180629/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="dsp-v1.0.0/web/Web" />
     </root>
